@@ -23,7 +23,7 @@ def detector_generator(angle, distance, lenght): #angles in degrees, distance in
     return angle_1, angle_2, np.radians(angle), distance, x_graph, y_graph, d_graph_x, d_graph_y
 
 def TOF_measure(angle_measure, detector_start, detector_stop, v):
-    x_start, x_stop = detector_start[3]/np.tan(angle_measure-detector_start[2]), detector_stop[3]/np.tan(angle_measure-detector_stop[2])
+    x_start, x_stop = detector_start[3]*np.tan(np.radians(np.abs(detector_start[2]-angle_measure))), detector_stop[3]*np.tan(np.radians(np.abs(detector_stop[2]-angle_measure)))
     flight_path = np.sqrt((detector_stop[3]-detector_start[3])**2+(x_start-x_stop)**2)
     TOF = flight_path/v
     return TOF, x_start, x_stop, flight_path
